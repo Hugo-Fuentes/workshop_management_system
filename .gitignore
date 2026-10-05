@@ -1,0 +1,21 @@
+# Configuration files with credentials
+config.properties
+
+# IDE & Editor files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# Build outputs
+target/
+bin/
+*.class
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Backup files from Dia diagram editor
+*.dia~
