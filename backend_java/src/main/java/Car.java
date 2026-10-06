@@ -2,6 +2,7 @@ public class Car {
     private int id;
     private String brand;
     private String model;
+    private int clientId;
 
     public int getId() {
         return id;
@@ -25,5 +26,13 @@ public class Car {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 }
