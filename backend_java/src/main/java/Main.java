@@ -9,49 +9,66 @@ public class Main {
             int opcion=0;
             while(opcion !=5) {
                 Menu();
+                System.out.println("Option: ");
                 opcion = entrada.nextInt();
                 entrada.nextLine();
-                switch (opcion) {
+                if(opcion>=1 && opcion<=5){switch (opcion) {
                     case 1:
-                        while (opcion !=6){
-                        mechanicMenu();
-                        opcion=entrada.nextInt();entrada.nextLine();
-                        switch (opcion){
-                            case 1:
+                        while (opcion != 6) {
+                            mechanicMenu();
+                            System.out.println("Option: ");
+                            opcion = entrada.nextInt();
+                            entrada.nextLine();
+                            if(opcion>=1 && opcion<=6){switch (opcion) {
+                                case 1:
 
-                        }
+                            }
+                            }else System.out.println("Choose a logical option");
                         }break;
                     case 2:
-                        while (opcion !=7){
+                        while (opcion != 7) {
                             clientMenu();
-                            opcion=entrada.nextInt();entrada.nextLine();
-                            switch (opcion){
-                                case 1:
+                            System.out.println("Option: ");
+                            opcion = entrada.nextInt();
+                            entrada.nextLine();
+                            if(opcion>=1 && opcion<=7) {
+                                switch (opcion) {
+                                    case 1:
 
 
-                            }
+                                }
+                            }else System.out.println("Choose a logical option");
                         }break;
                     case 3:
-                        while (opcion !=6){
+                        while (opcion != 6) {
                             carMenu();
-                            opcion=entrada.nextInt();entrada.nextLine();
-                            switch (opcion){
+                            System.out.println("Option: ");
+                            opcion = entrada.nextInt();
+                            entrada.nextLine();
+                            if(opcion>=1 && opcion<=6){switch (opcion) {
                                 case 1:
 
 
                             }
-                        }break;
+                        }else System.out.println("Choose a logical option");
+                       } break;
                     case 4:
-                        while (opcion !=6){
+                        while (opcion != 6) {
                             repairMenu();
-                            opcion=entrada.nextInt();entrada.nextLine();
-                            switch (opcion){
+                            System.out.println("Option: ");
+                            opcion = entrada.nextInt();
+                            entrada.nextLine();
+                            if(opcion>=1 && opcion<=6){switch (opcion) {
                                 case 1:
 
 
                             }
+                        }else System.out.println("Choose a logical option");
                         }break;
                 }
+                }
+                else System.out.println("Choose a logical option.");
+
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -59,6 +76,7 @@ public class Main {
     }
 
     private static void Menu() {
+        System.out.println("\t\t\t MAIN MENU \n");
         System.out.println("1-Mechanics Management");
         System.out.println("2-Clients Management");
         System.out.println("3-Cars Management");
