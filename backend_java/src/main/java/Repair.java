@@ -7,6 +7,14 @@ public class Repair {
     private int carId;
     private int mechanicId;
 
+    public Repair(LocalDate date, String descripcion, double cost, int carId, int mechanicId) {
+        this.date = date;
+        this.descripcion = descripcion;
+        this.cost = cost;
+        this.carId = carId;
+        this.mechanicId = mechanicId;
+    }
+
     public LocalDate getDate() {
         return date;
     }

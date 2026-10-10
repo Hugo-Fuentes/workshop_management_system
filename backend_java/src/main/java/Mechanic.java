@@ -4,6 +4,19 @@ public class Mechanic {
     private String last_name;
     private String phone_number;
 
+    public Mechanic(String name, String last_name, String phone_number) {
+        this.name = name;
+        this.last_name = last_name;
+        this.phone_number = phone_number;
+    }
+
+    public Mechanic(int id, String name, String last_name, String phone_number) {
+        this.id = id;
+        this.name = name;
+        this.last_name = last_name;
+        this.phone_number = phone_number;
+    }
+
     public int getId() {
         return id;
     }

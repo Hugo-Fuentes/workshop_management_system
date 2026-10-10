@@ -4,6 +4,13 @@ public class Car {
     private String model;
     private int clientId;
 
+    public Car(int id, String brand, String model, int clientId) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.clientId = clientId;
+    }
+
     public int getId() {
         return id;
     }
