@@ -30,6 +30,9 @@ public class Main {
                                         case 2:
                                             modifyMechanic();
                                             break;
+                                        case 3:
+                                            deleteMechanic();
+                                            break;
                                     }
                                 } else System.out.println("Choose a logical option");
                             }
@@ -177,6 +180,16 @@ public class Main {
             System.out.println("Mechanic updated");
         } else {
             System.out.println("The mechanic could not be updated.");
+        }
+    }
+
+    private static void deleteMechanic() throws SQLException {
+        System.out.println("Give me the id of the mechanic you want to delete: ");
+        int id=entrada.nextInt();
+        if (BBDD.deleteMechanic(id)) {
+            System.out.println("Mechanic deleted");
+        } else {
+            System.out.println("The mechanic could not be deleted.");
         }
     }
 

@@ -39,7 +39,55 @@ public class BBDD {
         else return true;
     }
 
+    public static boolean deleteMechanic(int id) {
+        try {
+            connect();
+            conection.setAutoCommit(false);
+
+            String sqlRepair = "DELETE FROM repair WHERE mechanicId = ?";
+            try (PreparedStatement sentence1 = conection.prepareStatement(sqlRepair)) {
+                sentence1.setInt(1, id);
+                sentence1.executeUpdate();
+            }
 
 
+            String sqlMechanic = "DELETE FROM mechanic WHERE id = ?";
+            try (PreparedStatement sentence = conection.prepareStatement(sqlMechanic)) {
+                sentence.setInt(1, id);
+                int rowsDeleted = sentence.executeUpdate();
 
+                if (rowsDeleted == 0) {
+                    conection.rollback();
+                    return false;
+                }
+            }
+
+
+            conection.commit();
+            return true;
+
+        } catch (Exception e) {
+
+            try {
+                if (conection != null) {
+                    conection.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+
+        } finally {
+
+            try {
+                if (conection != null) {
+                    conection.setAutoCommit(true);
+                    conection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
