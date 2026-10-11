@@ -33,6 +33,12 @@ public class Main {
                                         case 3:
                                             deleteMechanic();
                                             break;
+                                        case 4:
+                                            BBDD.viewMechanicByName();
+                                            break;
+                                        case 5:
+                                            BBDD.viewRepairsByMechanicName();
+                                            break;
                                     }
                                 } else System.out.println("Choose a logical option");
                             }
