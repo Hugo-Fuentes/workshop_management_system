@@ -52,6 +52,23 @@ public class Main {
                                 if (opcion >= 1 && opcion <= 7) {
                                     switch (opcion) {
                                         case 1:
+                                            addClient();
+                                            break;
+                                        case 2:
+                                            modifyClient();
+                                            break;
+                                        case 3:
+                                            deleteClient();
+                                            break;
+                                        case 4:
+                                            BBDD.viewClientByName();
+                                            break;
+                                        case 5:
+                                            BBDD.viewCarByClientName();
+                                            break;
+                                        case 6:
+                                            BBDD.viewRepairsByClientName();
+                                            break;
 
 
                                     }
@@ -196,6 +213,57 @@ public class Main {
             System.out.println("Mechanic deleted");
         } else {
             System.out.println("The mechanic could not be deleted.");
+        }
+    }
+
+    private static void addClient() throws SQLException {
+        boolean phone = false;
+        System.out.println("Give me client's name: ");
+        String name_ = entrada.nextLine();
+        System.out.println("Give me client's last name: ");
+        String last_name = entrada.nextLine();
+        while (phone == false) {
+            System.out.println("Give me clients's phone number: ");
+            String phone_number = entrada.nextLine();
+            if (phone_number.length() != 9) {
+                System.out.println("The phone number must have exactly 9 digits.");
+                phone = false;
+            } else {
+                phone = true;
+                if (BBDD.addClient(name_, last_name, phone_number)) {
+                    System.out.println("Client added");
+                    phone = true;
+                } else {
+                    System.out.println("The client could not be added.");
+                }
+            }
+
+        }
+
+    }
+
+    private static void modifyClient() throws SQLException {
+        System.out.println("Give me client's id: ");
+        int id = entrada.nextInt();entrada.nextLine();
+        System.out.println("Give me new name: ");
+        String name=entrada.nextLine();
+        System.out.println("Give me new last name: ");
+        String last_name= entrada.nextLine();
+        System.out.println("Give me new phone number: ");
+        String phone_number=entrada.nextLine();
+        if (BBDD.modifyClient(id,name, last_name, phone_number)) {
+            System.out.println("Client updated");
+        } else {
+            System.out.println("The client could not be updated.");
+        }
+    }
+    private static void deleteClient() throws SQLException {
+        System.out.println("Give me the id of the client you want to delete: ");
+        int id=entrada.nextInt();
+        if (BBDD.deleteClient(id)) {
+            System.out.println("Client deleted");
+        } else {
+            System.out.println("The client could not be deleted.");
         }
     }
 
