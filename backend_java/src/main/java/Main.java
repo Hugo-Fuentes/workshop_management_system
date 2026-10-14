@@ -1,4 +1,9 @@
+import com.mysql.cj.protocol.a.SqlDateValueEncoder;
+
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
@@ -8,22 +13,23 @@ public class Main {
         entrada = new Scanner(System.in);
 
         try {
-            int opcion = 0;
-            while (opcion != 5) {
+            int option = 0;
+            while (option != 5) {
                 Menu();
                 System.out.println("Option: ");
-                opcion = entrada.nextInt();
+                option = entrada.nextInt();
                 entrada.nextLine();
-                if (opcion >= 1 && opcion <= 5) {
-                    switch (opcion) {
+                if (option >= 1 && option <= 5) {
+                    switch (option) {
                         case 1:
-                            while (opcion != 6) {
+                            int optionMechanic=0;
+                            while (optionMechanic != 6) {
                                 mechanicMenu();
                                 System.out.println("Option: ");
-                                opcion = entrada.nextInt();
+                                optionMechanic= entrada.nextInt();
                                 entrada.nextLine();
-                                if (opcion >= 1 && opcion <= 6) {
-                                    switch (opcion) {
+                                if (optionMechanic >= 1 && optionMechanic <= 6) {
+                                    switch (optionMechanic) {
                                         case 1:
                                             addMechanic();
                                             break;
@@ -44,13 +50,14 @@ public class Main {
                             }
                             break;
                         case 2:
-                            while (opcion != 7) {
+                            int optionClient=0;
+                            while (optionClient != 7) {
                                 clientMenu();
                                 System.out.println("Option: ");
-                                opcion = entrada.nextInt();
+                                optionClient = entrada.nextInt();
                                 entrada.nextLine();
-                                if (opcion >= 1 && opcion <= 7) {
-                                    switch (opcion) {
+                                if (optionClient >= 1 && optionClient <= 7) {
+                                    switch (optionClient) {
                                         case 1:
                                             addClient();
                                             break;
@@ -76,14 +83,29 @@ public class Main {
                             }
                             break;
                         case 3:
-                            while (opcion != 6) {
+                            int optionCar=0;
+                            while (optionCar != 6) {
                                 carMenu();
                                 System.out.println("Option: ");
-                                opcion = entrada.nextInt();
+                                optionCar = entrada.nextInt();
                                 entrada.nextLine();
-                                if (opcion >= 1 && opcion <= 6) {
-                                    switch (opcion) {
+                                if (optionCar >= 1 && optionCar <= 6) {
+                                    switch (optionCar) {
                                         case 1:
+                                            addCar();
+                                            break;
+                                        case 2:
+                                            modifyCar();
+                                            break;
+                                        case 3:
+                                            deleteCar();
+                                            break;
+                                        case 4:
+                                            BBDD.viewCarByBrand();
+                                            break;
+                                        case 5:
+                                            BBDD.viewRepairsByCarId();
+                                            break;
 
 
                                     }
@@ -91,20 +113,30 @@ public class Main {
                             }
                             break;
                         case 4:
-                            while (opcion != 6) {
+                            int optionRepair=0;
+                            while (optionRepair != 5) {
                                 repairMenu();
                                 System.out.println("Option: ");
-                                opcion = entrada.nextInt();
+                                optionRepair = entrada.nextInt();
                                 entrada.nextLine();
-                                if (opcion >= 1 && opcion <= 6) {
-                                    switch (opcion) {
+                                if (optionRepair >= 1 && optionRepair <= 6) {
+                                    switch (optionRepair) {
                                         case 1:
-
-
+                                            addRepair();
+                                            break;
+                                        case 2:
+                                            modifyRepair();
+                                            break;
+                                        case 3:
+                                            deleteRepair();
+                                            break;
+                                        case 4:
+                                            BBDD.viewAllRepairs();
+                                            break;
                                     }
                                 } else System.out.println("Choose a logical option");
                             }
-                            break;
+                        break;
                     }
                 } else System.out.println("Choose a logical option.");
 
@@ -159,9 +191,8 @@ public class Main {
         System.out.println("1-Add repair");
         System.out.println("2-Modify repair");
         System.out.println("3-Delete repair");
-        System.out.println("4-View repair by client name");
-        System.out.println("5-View all repairs");
-        System.out.println("6-EXIT");
+        System.out.println("4-View all repairs");
+        System.out.println("5-EXIT");
     }
 
     private static void addMechanic() throws SQLException {
@@ -264,6 +295,94 @@ public class Main {
             System.out.println("Client deleted");
         } else {
             System.out.println("The client could not be deleted.");
+        }
+    }
+
+    private static void addCar() throws SQLException {
+        System.out.println("Give me the car's brand: ");
+        String brand=entrada.nextLine();
+        System.out.println("Give the model: ");
+        String model=entrada.nextLine();
+        System.out.println("Give me client's id: ");
+        int id=entrada.nextInt();
+        if (BBDD.addCar(brand,model, id)) {
+            System.out.println("Car added");
+        } else {
+            System.out.println("The car could not be added.");
+        }
+    }
+
+    private static void modifyCar() throws SQLException {
+        System.out.println("Give me car id: ");
+        int id=entrada.nextInt();entrada.nextLine();
+        System.out.println("Give new brand: ");
+        String brand=entrada.nextLine();
+        System.out.println("Give me new model: ");
+        String model=entrada.nextLine();
+        if (BBDD.modifyCar(brand,model,id)) {
+            System.out.println("Car updated");
+        } else {
+            System.out.println("The car could not be updated.");
+        }
+    }
+
+    private static void deleteCar() throws SQLException {
+        System.out.println("Give me the id of the car you want to delete: ");
+        int id=entrada.nextInt();
+        if (BBDD.deleteCar(id)) {
+            System.out.println("car deleted");
+        } else {
+            System.out.println("The car could not be deleted.");
+        }
+    }
+
+    private static void addRepair() throws SQLException {
+        System.out.println("Give me mechanic's id: ");
+        int mechanicId=entrada.nextInt();entrada.nextLine();
+        System.out.println("Give me car's id: ");
+        int carId=entrada.nextInt();entrada.nextLine();
+        System.out.println("Give me the date(dd/MM/yyyy): ");
+        String date=entrada.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date_=LocalDate.parse(date,formatter);
+        System.out.println("Give me a description: ");
+        String description=entrada.nextLine();
+        if(description.equalsIgnoreCase("")){
+            description=null;
+        }
+        System.out.println("Give me the cost :");
+        double cost=entrada.nextDouble();
+        if (BBDD.addRepair(mechanicId,carId, Date.valueOf(date_),description,cost)) {
+            System.out.println("repair added");
+        } else {
+            System.out.println("The repair could not be added.");
+        }
+
+    }
+
+    private static void modifyRepair() throws SQLException {
+        System.out.println("Give me repair id: ");
+        int id=entrada.nextInt();entrada.nextLine();
+        System.out.println("Give me new date: ");
+        String date=entrada.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date_=LocalDate.parse(date,formatter);
+        System.out.println("Give me new cost: ");
+        double cost=entrada.nextDouble();
+        if (BBDD.modifyRepair(id,date_,cost)) {
+            System.out.println("repair updated");
+        } else {
+            System.out.println("The repair could not be updated.");
+        }
+    }
+
+    private static void deleteRepair() throws SQLException {
+        System.out.println("Give me the id of the repair you want to delete: ");
+        int id=entrada.nextInt();
+        if (BBDD.deleteRepair(id)) {
+            System.out.println("repair deleted");
+        } else {
+            System.out.println("The repair could not be deleted.");
         }
     }
 

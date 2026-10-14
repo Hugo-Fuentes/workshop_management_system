@@ -21,12 +21,13 @@ PRIMARY KEY(id,idClient)
 );
 
 CREATE TABLE workshop.repair(
+id int AUTO_INCREMENT,
 mechanicId int,
 carId int,
 date_ date NOT NULL,
 description_ text,
 cost decimal(10,2) NOT NULL,
-PRIMARY KEY(mechanicId,carId)
+PRIMARY KEY(id)
 );
 
 CREATE TABLE workshop.client(
